@@ -1,0 +1,4 @@
+[16-Mar-2017 02:46:41 UTC] PHP Fatal error:  Class 'App\Attributes' not found in /home/onlinap6/public_html/bubiland/app/Http/Controllers/AdminController.php on line 342
+[16-Mar-2017 06:01:29 UTC] PHP Fatal error:  Class 'App\Attributes' not found in /home/onlinap6/public_html/bubiland/app/Http/Controllers/AdminController.php on line 342
+[16-Mar-2017 06:01:37 UTC] PHP Fatal error:  Class 'App\Attributes' not found in /home/onlinap6/public_html/bubiland/app/Http/Controllers/AdminController.php on line 342
+[16-Mar-2017 06:01:45 UTC] PHP Fatal error:  Class 'App\Attributes' not found in /home/onlinap6/public_html/bubiland/app/Http/Controllers/AdminController.php on line 407
