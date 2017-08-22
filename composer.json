@@ -9,7 +9,7 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
         "laravel/socialite": "^2.0",
-         "paypal/rest-api-sdk-php": "*",
+        "paypal/rest-api-sdk-php": "*",
         "laracasts/flash": "^2.0",
         "paypal/adaptivepayments-sdk-php":"v3.6.106",
         "srmklive/paypal": "~1.0",
