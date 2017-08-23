@@ -1026,6 +1026,7 @@ header {
 			.product-grid .product .image {
 				position: relative;
 				overflow: hidden;
+				margin: 0 auto;
 			}
 			
 				.product-grid .product .image img {
