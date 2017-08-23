@@ -24,7 +24,7 @@ class SocialAuthController extends Controller
             session()->regenerate();
             session(['usertype' => 'buyer', 'user_id' => $user->user_id]);
         }else{
-            $user_ids = User::where('email',$user->email)->first();
+            $user_ids = User::where('email', $user->email)->first();
             SocialAccount::where('email',$user->email)->update(['user_id' => $user_ids->user_id]);
             session()->regenerate();
             session(['usertype' => 'buyer', 'user_id' => $user_ids->user_id]);

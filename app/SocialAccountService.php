@@ -10,7 +10,7 @@ class SocialAccountService
             ->whereprovider_user_id($providerUser->getId())
             ->first();
         if ($account) {
-            return $account;
+            return [$account, $providerUser];
         } else {
             $email = !empty($providerUser->getEmail()) ? $providerUser->getEmail() : $providerUser->getId().'@'.$driver.'com';
             $account = new SocialAccount([
@@ -41,6 +41,5 @@ class SocialAccountService
             $account->save();
             return [$user, $providerUser];
         }
-
     }
 }
