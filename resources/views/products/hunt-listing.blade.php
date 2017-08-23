@@ -274,7 +274,7 @@
 
                                                                             <img alt="Canon EOS 5D"
 
-                                                                                style="height:165px; width:165px;" src=
+                                                                                src=
 
                                                                                  "images/product_hunt/{{$products[$j]['product_image']}}">
 

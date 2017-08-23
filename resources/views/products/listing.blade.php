@@ -264,7 +264,7 @@
 
 					<div class="image image-swap-effect">
 						<a href="{{URL::asset('/')}}product-detail/{{$filter_data_values->product_id}}">
-						<img alt="Canon EOS 5D" style = "height:160px; width:170px;"
+						<img alt="Canon EOS 5D"
 						src="images/product_master/{{$filter_data_values->product_images}}">
 						</a>
 					</div>

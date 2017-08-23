@@ -1031,6 +1031,11 @@ header {
 			
 				.product-grid .product .image img {
 					display: block;
+					width: auto;
+				    height: auto;
+				    min-width: 100%;
+				    min-height: 100%;
+				    overflow: hidden;
 				}
 				
 				.product-grid .product .image .product-actions {
