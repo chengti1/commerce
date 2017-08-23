@@ -100,7 +100,7 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-sm-3" id="column_left">
+                     <div class="col-md-3 col-sm-3" id="column_left">
                         <div class="box">
                            <div class="box-heading">
                               Featured
@@ -192,7 +192,7 @@
                               "image/catalog/banner-category.png"></a>
                         </div>
                      </div>
-                     <div class="col-sm-9">
+                     <div class="col-md-9">
                         <div class="filter-product" id="crousell">
                            <div class="filter-tabs">
                               <div class="bg-filter-tabs">
@@ -220,13 +220,13 @@
                                        {{-- */$tmpIndex=$index;/* --}}
                                        @for($k=$index;$k<($tmpIndex+4);$k++)
                                        @if($products[$index]['product_name'])
-                                       <div class="col-sm-3 col-xs-6">
+                                       <div class="col-sm-3 col-xs-12">
                                           <!-- Product -->
                                           <div class="product clearfix">
                                              <div class="left">
 
                                              <!-- edited by kartik. -->
-                                                <div class="image" style="width: 196px; height: 196px;">
+                                                <div class="image" style="width: 175px; height: 175px;">
                                              <!-- end here -->
                                                    <div class="product-actions">
                                                       <a href = "{{route('product.addToCart', ['id' => $products[$index]['product_id'] ])}}" data-original-title="Add to Cart" data-toggle="tooltip"

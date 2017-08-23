@@ -157,7 +157,7 @@
 
 						</div>
 
-						<div class="col-sm-9">
+						<div class="col-md-9">
 
 							<div class="row">
 
@@ -243,10 +243,10 @@
 <div class="row">
 @if($filter_data != NULL)
 	@foreach($filter_data as $filter_data_values)
-	<div class="col-sm-3 col-xs-6">
+	<div class="col-sm-3 col-xs-12">
 		<div class="product clearfix">
 			<div class="left">
-				<div class="image" style="width: 196px; height: 196px;">
+				<div class="image" style="width: 175px; height: 175px;">
 
 					<div class="product-actions">
 						<a href = "{{route('product.addToCart', ['id' => $filter_data_values->product_id])}}" data-original-title="Add to Cart" data-toggle="tooltip">

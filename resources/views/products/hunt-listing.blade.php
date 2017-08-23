@@ -64,7 +64,7 @@
 
                 <div class="row">
 
-                    <div class="col-sm-3" id="column_left">
+                    <div class="col-md-3 col-sm-3" id="column_left">
 
                         <div class="box box-category">
 
@@ -157,7 +157,7 @@
 
                     </div>
 
-                    <div class="col-sm-9">
+                    <div class="col-md-9">
 
                         <div class="row">
 
@@ -256,7 +256,7 @@
 
                                                 @if($products[$j]['product_name'])
 
-                                                    <div class="col-sm-3 col-xs-6">
+                                                    <div class="col-sm-3 col-xs-12">
 
                                                         <!-- Product -->
 
@@ -264,7 +264,7 @@
 
                                                             <div class="left">
                                                                 <!-- edited by kartik -->
-                                                                <div class="image" style="width: 196px; height: 196px;">
+                                                                <div class="image" style="width: 175px; height: 175px;">
 
                                                                     <div class="image image-swap-effect">
 
@@ -274,7 +274,7 @@
 
                                                                             <img alt="Canon EOS 5D"
 
-                                                                                 style="height:160px; width:170px;" src=
+                                                                                style="height:165px; width:165px;" src=
 
                                                                                  "images/product_hunt/{{$products[$j]['product_image']}}">
 
