@@ -119,6 +119,9 @@ Route::get('/verify/{confirmationcode}/{userid}','UserController@verify');
 Route::get('/redirect/{driver}', 'SocialAuthController@redirect');
 Route::get('/callback/{driver}', 'SocialAuthController@callback');
 
+Route::get('/update-profile', 'UserController@getUpdateProfile');
+Route::post('/update-profile', 'UserController@postUpdateProfile');
+
 
 // route for captcha created by kartik.
 Route::get('/refereshcapcha', 'UserController@refereshCapcha');

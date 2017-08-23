@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 {{Html::script('js/countries.js')}}
+{{Html::style('catalog/view/theme/stowear/css/bootstrap-social.css')}}
 <div class="breadcrumb full-width">
 	<div class="background-breadcrumb"></div>
 	<div class="background">
@@ -28,6 +29,7 @@
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-9 center-column">
+
 								<p>If you already have an account with us, please login at the <a href="login">login page</a>.</p>
 								<form action="register" method="post" enctype="multipart/form-data" class="form-horizontal">
 									<input type="hidden" name="_token" value="{{ csrf_token() }}">

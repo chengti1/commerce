@@ -20,17 +20,26 @@ class SocialAccountService
             ]);
             $user = User::whereemail($providerUser->getEmail())->first();
             if (!$user) {
-                $user = User::create([
-                    'email' => $email,
-                    'first_name' => $providerUser->getName(),
-                    'confirm_code' => 'null',
-                    'confirmed' => 1,
-                ]);
+                if( !empty($providerUser->getEmail()) ){
+                    $user = User::create([
+                        'email' => $email,
+                        'first_name' => $providerUser->getName(),
+                        'confirm_code' => 'null',
+                        'confirmed' => 1,
+                    ]);
+                }else{
+                    $user = User::create([
+                        'email' => $email,
+                        'first_name' => $providerUser->getName(),
+                        'confirm_code' => rand(10000000, 99999999),
+                        'confirmed' => 0,
+                    ]);
+                }
+
             }
             $account->user()->associate($user);
             $account->save();
-            return $user;
-
+            return [$user, $providerUser];
         }
 
     }
