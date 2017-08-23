@@ -160,7 +160,7 @@ class UserController extends BaseController
 			// prashant kumar
 
             if($confirmed != '1'){
-				
+
 				session::put('change_email_user_id',$user_id);
 
                 $flash = \Session::flash('warning', 'Please activate your account first. If you want to change email address, please <a href="change-email">click</a> here');
@@ -265,7 +265,7 @@ class UserController extends BaseController
                 'newsletter'=>'required|max:1',
 
                 'mobilenumber'=>'required|max:20|min:8|unique:users,mobile_number',
-				
+
 				'captcha' => 'required|captcha',
 
             ]);
@@ -336,7 +336,7 @@ class UserController extends BaseController
 
             $code = User::where('email',$request->input('email'))->first();
 
-            
+
 
             Mail::send('mails.welcome', ['confirm_code'=>$code->confirm_code, 'user_id'=>$code->user_id], function($message) use($data)
 
@@ -347,7 +347,7 @@ class UserController extends BaseController
                     $message->to($data['email'], $data['name'])->subject('Verification Email');
 
                 });
-				
+
 				// prashant kumar
              \Session::flash('msg', 'Please activate your account. Email has been sent to '. $data['email']. ' check your inbox in order to activate and login into your account');
 
@@ -465,7 +465,7 @@ class UserController extends BaseController
             }
         }
     }
-	
+
 	// Prashant Kumar
      public function changeEmail(){
 
@@ -525,7 +525,7 @@ class UserController extends BaseController
             return view('change-password')->with('id',$id)->with('reset_code',$code);
         }
     }
-	
+
 	public function doChangePassword($code,$id, Request $request){
         $user = User::where('reset_code',$code)->where('user_id',$id)->where('email',$request->input('email'))->first();
         if(count($user) == 0){
@@ -533,7 +533,7 @@ class UserController extends BaseController
         }
         else{
             $password = Hash::make($request->input('password'));
-			
+
 			User::where('reset_code',$code)->where('user_id',$id)->where('email',$request->input('email'))->update(['reset_code'=>'','password'=>$password]);
 			return redirect('login')->with('success','Password successfully reset. Please login to continue');
         }
