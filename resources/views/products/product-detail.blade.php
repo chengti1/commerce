@@ -5,7 +5,7 @@
 	.tab-new {width:100%;}
 	.tab-content p {margin-top:15px;}
 	.breadcrumb .container ul {margin-bottom:15px;}
-	.popup-gallery, .product-center {width:330px;}
+	/*.popup-gallery, .product-center {width:330px;}*/
 	.product.clearfix .left {width:30%; float:left;}
 	.product.clearfix .right {float: right; width: 65%;}
 	.product.clearfix .right .name {padding-top:0;}
@@ -295,12 +295,12 @@
                                                                 <div class="col-sm-12">
 
                                                                     <!--prahsant changed inline width-->
-                                                                    <div class="product-image cloud-zoom" style = "width:255px;">
+                                                                    <div class="product-image cloud-zoom">
                                                                     <!--prahsant changed inline width-->
 
 
 
-                                                                        <img style = " width:308px;"
+                                                                        <img
 
                                                                                     src="{{URL::asset('/')}}images/product_master/{{$product->product_images}}"
 

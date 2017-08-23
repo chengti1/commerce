@@ -153,7 +153,7 @@
 
 .submenu {display: none;}
 
-.popup-gallery, .product-center {width:330px;}
+/*.popup-gallery, .product-center {width:330px;}*/
 
 .mainmenu {margin: 1px;line-height: 30px;background: white url(plus.png) left top no-repeat;}
 

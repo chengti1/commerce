@@ -526,6 +526,9 @@
 	.product-grid .product .price{
 		text-align: center;
 	}
+	.product-grid .product {
+	    width: 100%;
+	}
 }
 
 @media (max-width: 600px) {
@@ -543,10 +546,12 @@
 		padding: 0;
 		margin-left: 120px;
 	}
+	.responsive .product-grid .product{ margin-left: 0;  }
 }
 @media (max-width: 320px) {
 	.responsive .product-grid .product,
 	.responsive .center-column .product-grid .product {
 		margin-left: 45px;
 	}
+	.responsive .product-grid .product{ margin-left: 0;  }
 }
