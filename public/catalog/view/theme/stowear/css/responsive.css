@@ -537,6 +537,13 @@
 		float: left;
 		padding: 0 95px;
 	}
+	#column_left{
+		display: none;
+	}
+	.htabs a{
+		float: none;
+		clear: both;
+	}
 }
 
 @media (max-width: 480px) {
