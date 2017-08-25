@@ -1,9 +1,10 @@
 @extends('layouts/layout')
 @section('social_share')
+
     @include('social::meta-article', [
         'title'         => $product->product_name,
         'description'   => strip_tags(str_limit($product->product_description,65)),
-        'image'         => URL::asset('/images/product_master/').'/'. $featured[0]->product_images,
+        'image'         => URL::asset('/images/product_master/').'/'. $product->product_images,
         'author'        => 'Admin'
     ])
 @stop

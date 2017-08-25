@@ -5,7 +5,7 @@
     @include('social::meta-article', [
         'title'         => $product->product_name,
         'description'   => strip_tags(str_limit($product->product_description,65)),
-        'image'         => URL::asset('/images/product_master/').'/'. $featured[0]->product_images,
+        'image'         => URL::asset('/images/product_hunt/').'/'. $product->product_image,
         'author'        => 'Admin'
     ])
 @stop
@@ -175,291 +175,121 @@
                                                                         <div class="left">
 
                                                                             <div class="image">
-
-
-
-
-
                                                                                 <div class="image image-swap-effect">
 
                                                                                     <a href="{{URL::asset('/')}}product-detail/{{$feature->product_id}}">
 
                                                                                         <img src="{{URL::asset('/')}}images/product_master/{{$feature->product_images}}"
-
                                                                                              alt="{{$feature->product_name}}">
-
                                                                                     </a>
-
                                                                                 </div>
-
                                                                             </div>
-
                                                                         </div>
-
                                                                         <div class="right">
-
                                                                             <div class="name"><a
-
                                                                                         href="{{URL::asset('/')}}product-detail/{{$feature->product_id}}">{{$feature->product_name}}</a>
-
                                                                             </div>
-
-
-
-
-
                                                                             <div class="price">
-
-                                                                                ${{$feature->price_after_discount}}                </div>
-
+                                                                                ${{$feature->price_after_discount}}
+                                                                            </div>
                                                                         </div>
-
                                                                     </div>
-
                                                                 </div>
-
                                                             @endforeach
-
                                                         </div>
-
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
-
-
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
-
-
-
                         <div class="col-sm-9">
-
-
-
-
-
                             <div class="row">
-
                                 <div class="col-sm-12 center-column">
-
-
-
-
-
                                     <div itemscope itemtype="http://data-vocabulary.org/Product">
-
                                         <span itemprop="name" class="hidden">Samsung Galaxy Tab 10.1</span>
-
                                         <div class="product-info">
-
                                             <div class="row">
-
                                                 <div class="col-sm-9">
-
                                                     <div class="row" id="quickview_product">
-
                                                         <script>
-
                                                             $(document).ready(function () {
-
                                                                 $('#image').elevateZoom({
-
                                                                     zoomWindowFadeIn: 500,
-
                                                                     zoomWindowFadeOut: 500,
-
                                                                     zoomWindowOffetx: 20,
-
                                                                     zoomWindowOffety: -1,
-
                                                                     cursor: "pointer",
-
                                                                     lensFadeIn: 500,
-
                                                                     lensFadeOut: 500,
-
                                                                 });
-
-
-
                                                                 $('.thumbnails a').click(function () {
-
                                                                     var smallImage = $(this).attr('data-image');
-
                                                                     var largeImage = $(this).attr('data-zoom-image');
-
                                                                     var ez = $('#image').data('elevateZoom');
-
                                                                     $('#ex1').attr('href', largeImage);
-
                                                                     ez.swaptheimage(smallImage, largeImage);
-
                                                                     return false;
-
                                                                 });
-
                                                             });
-
                                                         </script>
-
                                                         <div class="col-sm-6 popup-gallery">
-
                                                             <div class="row">
-
-
-
-
-
                                                                 <div class="col-sm-12">
-
                                                                     <div class="product-image cloud-zoom" style = "width:308px;">
-
-
-
                                                                         <img style = "height:465px; width:308px;" src="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}" title="{{$product->product_name}}" alt="{{$product->product_name}}" id="image" itemprop="image" data-zoom-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}">
-
                                                                     </div>
-
-
-
                                                                     <div class="col-sm-12">
-
                                                                         <div class="thumbnails thumbnails-left clearfix">
-
                                                                             <ul>
-
                                                                                 <li><p><a href="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}" data-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}" data-zoom-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}"><img style = "height:67px; width:45px;" src="{{URL::asset('/')}}images/product_hunt/{{$product->product_image}}" title="{{$product->product_name}}" alt="{{$product->product_name}}"></a></p></li>
-
-
-
                                                                                 @if($product->product_image_1 != '')
-
                                                                                 <li><p><a href="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_1}}" data-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_1}}" data-zoom-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_1}}"><img style = "height:67px; width:45px;" src="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_1}}" title="{{$product->product_name}}" alt="{{$product->product_name}}"></a></p></li>
-
                                                                                 @endif
-
-
-
                                                                                 @if($product->product_image_2 != '')
-
                                                                                 <li><p><a href="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_2}}" data-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_2}}" data-zoom-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_2}}"><img style = "height:67px; width:45px;" src="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_2}}" title="{{$product->product_name}}" alt="{{$product->product_name}}"></a></p></li>
-
                                                                                 @endif
-
-
-
                                                                                 @if($product->product_image_3 != '')
-
                                                                                 <li><p><a href="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_3}}" data-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_3}}" data-zoom-image="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_3}}"><img style = "height:67px; width:45px;" src="{{URL::asset('/')}}images/product_hunt/{{$product->product_image_3}}" title="{{$product->product_name}}" alt="{{$product->product_name}}"></a></p></li>
-
                                                                                 @endif
-
                                                                             </ul>
-
                                                                         </div>
-
                                                                     </div>
-
                                                                 </div>
-
-
-
                                                             </div>
-
                                                         </div>
-
-
-
                                                         <div class="col-sm-6 product-center clearfix">
-
                                                             <div itemprop="offerDetails" itemscope
-
                                                                  itemtype="http://data-vocabulary.org/Offer">
-
                                                                 <div class="description">
-
                                                                     <span>Product Code:</span> {{$product->hunt_id}}
-
                                                                     <br/>
-
-
-
                                                                 </div>
-
                                                                 <div class="price">
-
                                                                     <span class="price-new"><span
-
                                                                                 itemprop="price">${{$product->product_price}}</span></span>
-
                                                                     <br/>
-
                                                                     <br/>
-
                                                                 </div>
-
                                                             </div>
-
-
-
                                                             <div id="product">
-
-
-
-
-
                                                                 <div class="cart">
-
                                                                     <div class="add-to-cart clearfix">
-
-
-
-                                                                        <input type="hidden" name="product_id" size="2"
-
-                                                                               value="49"/>
-
-                                                                        <button type="button"
-
-                                                                                class="btn btn-info btn-lg"
-
-                                                                                id="info-button" data-toggle="modal"><i
-
-                                                                                    class="fa fa-envelope"></i>
-
+                                                                        <input type="hidden" name="product_id" size="2" value="49"/>
+                                                                        <button type="button" class="btn btn-info btn-lg" id="info-button" data-toggle="modal"><i class="fa fa-envelope"></i>
                                                                             Contact Buyer
-
                                                                         </button>
-
                                                                         </a>
-
                                                                         <div class="modal fade" id="myModal"
-
                                                                              role="dialog">
-
                                                                             <div class="modal-dialog">
-
-
-
                                                                                 <!-- Modal content-->
-
                                                                                 <div class="modal-content">
-
                                                                                     <div class="modal-header">
-
                                                                                         <button type="button"
-
                                                                                                 class="close"
-
                                                                                                 data-dismiss="modal">&times;</button>
 
                                                                                         <h4 class="modal-title">Send Your Product Details</h4>
