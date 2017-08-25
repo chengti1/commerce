@@ -598,7 +598,7 @@ $(document).ready(function() {
                                                     <a href="{{ URL::asset('/')}}buyerdashboard/hunt-an-item"><i class="fa fa-search"></i>  Hunt an Item</a>
                                                 </div>
                                                 <div id="category" class="mainmenu">
-                                                    <a href="#/"><i class="fa fa-shopping-cart"></i> My Store</a>
+                                                    <a href="{{ url('/buyerdashboard/my-store') }}"><i class="fa fa-shopping-cart"></i> My Store</a>
                                                 </div>
                                                 <div id="category" class="mainmenu">
                                                     <a href="#/"><i class="fa fa-dollar"></i> My Ads</a>

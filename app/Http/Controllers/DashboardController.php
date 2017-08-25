@@ -1289,4 +1289,11 @@ class DashboardController extends Controller
       }
       echo $html;
     }
+
+    public function myStore(){
+        session()->regenerate();
+        $user = User::where('user_id', Session('user_id'))->first();
+        $products = Products::where('seller_id', session('user_id'))->paginate(10);
+        return view('buyerdashboard.my-store', compact('products'))->with('userData', $user);
+    }
 }

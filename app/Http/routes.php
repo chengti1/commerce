@@ -74,6 +74,8 @@ Route::group(['prefix' => 'buyerdashboard'], function () {
     Route::get('/manage-shipping','DashboardController@manage_shipping');
     Route::post('/manage-shipping','DashboardController@do_manage_shipping');
     Route::post('/getToShipping','DashboardController@getToCountries');
+
+    Route::get('/my-store', 'DashboardController@myStore');
 });
 
 Route::group(['prefix' => 'admindashboard'], function () {
@@ -99,6 +101,7 @@ Route::group(['prefix' => 'admindashboard'], function () {
     Route::get('/editsubcategory','AdminController@editsubcategory');
     Route::get('/manage-coupons', 'AdminController@manage_coupons');
     Route::get('/hunting-commission', 'AdminController@hunting_commission');
+    Route::get('/hunting-product', 'AdminController@huntingProduct');
     Route::get('/update-hunt-commission/{id}', 'AdminController@view_update_commission');
     Route::post('/update-hunt-commission/{id}', 'AdminController@do_view_update_commission');
     Route::get('/manage-reports','AdminController@manage_reports');

@@ -26,7 +26,11 @@
     {!! Html::style('dashboard/css/jqvmap.min.css') !!}
     <!-- JQVMap -->
     {!! Html::style('dashboard/css/custom.min.css') !!}
-    {!! Html::style('dashboard/css/jquery.tagsinput.css') !!}		{!! Html::style('css/chosen.css') !!}		{{Html::style('dashboard/css/jquery.tagsinput.css')}}
+    {!! Html::style('dashboard/css/jquery.tagsinput.css') !!}
+
+	{!! Html::style('css/chosen.css') !!}
+
+	{{Html::style('dashboard/css/jquery.tagsinput.css')}}
 
     <!-- Custom Theme Style -->
   </head>
@@ -73,28 +77,20 @@
                   </li>
                   <li><a href = "{{ Request::root() }}/admindashboard/manage-reports"><i class="fa fa-tags"></i> Manage Reports </a>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Manage Users <span class="fa fa-chevron-down"></span></a>
+                  <li>
+                    <a><i class="fa fa-bar-chart-o"></i> Manage Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#">Sellers</a></li>
                       <li><a href="#">Buyers</a></li>
                     </ul>
                   </li>
                 <ul class="nav side-menu">
-                  <li><a href = "{{ Request::root() }}/admindashboard/manage-products"><i class="fa fa-bug"></i> Manage Products </a>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i>Manage Commissions<span class="fa fa-chevron-down"></span></a>
+                  <li><a href = "{{ Request::root() }}/admindashboard/manage-products"><i class="fa fa-bug"></i> Manage Products </a></li>
+                  <li>
+                    <a><i class="fa fa-windows"></i>Manage Commissions<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ Request::root() }}/admindashboard/hunting-commission">Hunting</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> My Ads <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">403 Error</a></li>
-                      <li><a href="#">404 Error</a></li>
-                      <li><a href="#">500 Error</a></li>
-                      <li><a href="#">Plain Page</a></li>
-                      <li><a href="#">Login Page</a></li>
-                      <li><a href="#">Pricing Tables</a></li>
+                      <li><a href="{{ Request::root() }}/admindashboard/hunting-product">Product</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> My Banners <span class="fa fa-chevron-down"></span></a>
@@ -309,16 +305,67 @@
     {!! Html::script('dashboard/js/jquery.vmap.sampledata.js') !!}
     <!-- bootstrap-daterangepicker -->
     {!! Html::script('dashboard/js/moment.min.js') !!}
-    {!! Html::script('dashboard/js/daterangepicker.js') !!}	{!! Html::script('js/chosen.jquery.js') !!}
+    {!! Html::script('dashboard/js/daterangepicker.js') !!}
+	{!! Html::script('js/chosen.jquery.js') !!}
 
     <!-- Custom Theme Scripts -->
     {!! Html::script('dashboard/js/custom.min.js') !!}
-    {!! Html::script('dashboard/js/jquery.tagsinput.js') !!}		{{Html::script('dashboard/js/jquery.tagsinput.js')}}		{{Html::script('ckeditor/ckeditor.js')}}
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>	<script>        $(document).ready(function () {            var category = $('#categories option:selected').val();            $.ajax({                url: '{{ URL::asset('/')}}buyerdashboard/getsubcategory?category_id=' + category,                type: 'get',                success: function (subcategory) {                    $('#scategory').html(subcategory);                }            })        })    </script>    <script>        $(document).ready(function () {            $('#categories').change(function () {                var category = $('#categories option:selected').val();                $.ajax({                    url: '{{ URL::asset('/')}}buyerdashboard/getsubcategory?category_id=' + category,                    type: 'get',                    success: function (subcategory) {                        $('#scategory').html(subcategory);                    }                })            })        });    </script>    <script type="text/javascript">        $(document).ready(function () {            $('#discount').keyup(function () {                var sellprice = $('#sellprice').val();                var discount = $('#discount').val();                var dprice = (sellprice) - (sellprice / 100) * discount;                $('#afterdiscount').val(dprice.toFixed(2));            });        });    </script>    <script>        $(document).ready(function () {            $('#keywords').tagsInput();        });    </script>	
+    {!! Html::script('dashboard/js/jquery.tagsinput.js') !!}
+
+	{{Html::script('dashboard/js/jquery.tagsinput.js')}}
+
+	{{Html::script('ckeditor/ckeditor.js')}}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+	<script>
+        $(document).ready(function () {
+            var category = $('#categories option:selected').val();
+            $.ajax({
+                url: '{{ URL::asset('/')}}buyerdashboard/getsubcategory?category_id=' + category,
+                type: 'get',
+                success: function (subcategory) {
+                    $('#scategory').html(subcategory);
+                }
+            })
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#categories').change(function () {
+                var category = $('#categories option:selected').val();
+                $.ajax({
+                    url: '{{ URL::asset('/')}}buyerdashboard/getsubcategory?category_id=' + category,
+                    type: 'get',
+                    success: function (subcategory) {
+                        $('#scategory').html(subcategory);
+                    }
+                })
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#discount').keyup(function () {
+                var sellprice = $('#sellprice').val();
+                var discount = $('#discount').val();
+                var dprice = (sellprice) - (sellprice / 100) * discount;
+                $('#afterdiscount').val(dprice.toFixed(2));
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#keywords').tagsInput();
+        });
+    </script>
+
     <script>
       $(document).ready(function(){
         $('.myTable').DataTable();
-      });	  		$(document).ready(function(){		  $('#attributes').chosen();		})
+      });
+
+		$(document).ready(function(){
+		  $('#attributes').chosen();
+		})
     </script>
 
     <!-- Flot -->
@@ -479,7 +526,7 @@
       });
     </script>
     <!-- /Doughnut Chart -->
-    
+
     <!-- bootstrap-daterangepicker -->
     <script>
       $(document).ready(function() {

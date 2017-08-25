@@ -450,6 +450,18 @@ class AdminController extends Controller
         }
     }
 
+    public function huntingProduct(){
+        session()->regenerate();
+        if(session('usertype') == 'admin'){
+            $adminData = admin::where('admin_id',session('admin_id'))->first();
+            $commission = hunt_commission::get();
+            return view('admin.hunting-commission')->with('adminData', $adminData)->with('commission',$commission);
+        }
+        else{
+            return redirect('/admin');
+        }
+    }
+
     public function view_update_commission($id){
         session()->regenerate();
         if(session('usertype') == 'admin'){
@@ -605,17 +617,17 @@ class AdminController extends Controller
 				'price_after_discount' => session('discount_price'),
 				'status_value' => $request->input('status')
 			]);
-    			if(Session::has('image1')){
-    				Products::where('product_id',$id)->update(['product_image_1'=>session('image1')]);
-    			}
-    			if(Session::has('image2')){
-    				Products::where('product_id',$id)->update(['product_image_2'=>session('image2')]);
-    			  }
-    			  if(Session::has('image3')){
-    				Products::where('product_id',$id)->update(['product_image_3'=>session('image3')]);
-    			  }
+			if(Session::has('image1')){
+				Products::where('product_id',$id)->update(['product_image_1'=>session('image1')]);
+			}
+			if(Session::has('image2')){
+				Products::where('product_id',$id)->update(['product_image_2'=>session('image2')]);
+			}
+			if(Session::has('image3')){
+				Products::where('product_id',$id)->update(['product_image_3'=>session('image3')]);
+			}
 
-              return redirect('/admindashboard/update-product/'.$id)->with('success','Product Details Updated');
-            }
+            return redirect('/admindashboard/update-product/'.$id)->with('success','Product Details Updated');
+        }
     }
 }
