@@ -1,41 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use App\admin;
-
 use App\Categories;
-
 use App\attributes;
-
 use App\brands;
-
 use Carbon\Carbon;
-
 use App\selltype;
-
 use File;
-
 use Illuminate\Support\Facades\Validator;
-
 use App\auction_categories;
-
 use Session;
-
 use Hash;
-
 use App\create_coupon_code;
-
 use App\hunt_commission;
-
 use App\paypal_transactions;
-
 use App\Products;
-
 use DB;
 
 class AdminController extends Controller
@@ -164,7 +145,7 @@ class AdminController extends Controller
         	}
         	$destinationPath = base_path() . '/public/images/product_category/';
     		$current_time = Carbon::now();
-    		$extension = $request->file('image')->getClientOriginalExtension(); 
+    		$extension = $request->file('image')->getClientOriginalExtension();
     		$date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second;
       		$fileName = $date.'.'.$extension;
       		$request->file('image')->move($destinationPath, $fileName);
@@ -197,7 +178,7 @@ class AdminController extends Controller
     		else{
     			return redirect('/admindashboard/managecategories');
     		}
-    		
+
     	}
     	else{
     		return redirect('/admin');
@@ -221,7 +202,7 @@ class AdminController extends Controller
         	if($request->file('image')){
         	$destinationPath = base_path() . '/public/images/product_category/';
     		$current_time = Carbon::now();
-    		$extension = $request->file('image')->getClientOriginalExtension(); 
+    		$extension = $request->file('image')->getClientOriginalExtension();
     		$date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second;
       		$fileName = $date.'.'.$extension;
       		$request->file('image')->move($destinationPath, $fileName);
@@ -475,13 +456,13 @@ class AdminController extends Controller
             $adminData = admin::where('admin_id',session('admin_id'))->first();
             $commission = hunt_commission::where('commission_id', $id)->first();
             return view('admin.update-hunting-commission')->with('adminData', $adminData)->with('commission',$commission);
+        }
+        else{
+            return redirect('/admin');
+        }
     }
-    else{
-        return redirect('/admin');
-    }
-}
 
-public function do_view_update_commission($id, Request $request){
+    public function do_view_update_commission($id, Request $request){
         session()->regenerate();
         if(session('usertype') == 'admin'){
             $validator = Validator::make($request->all(), [
@@ -490,18 +471,18 @@ public function do_view_update_commission($id, Request $request){
                 'maximum'=>'required|min:0|numeric',
             ]);
             if ($validator->fails()) {
-             return redirect('/admindashboard/update-hunt-commission/'.$id)->with('errors',$validator->errors());
+                return redirect('/admindashboard/update-hunt-commission/'.$id)->with('errors',$validator->errors());
+            }
+            else{
+                hunt_commission::where('commission_id', $id)->update(['fixed'=>$request->input('fixed'), 'maximum'=>$request->input('maximum'), 'percentage'=>$request->input('percentage')]);
+                return redirect('admindashboard/hunting-commission')->with('success', 'successfully updated');
+            }
         }
         else{
-            hunt_commission::where('commission_id', $id)->update(['fixed'=>$request->input('fixed'), 'maximum'=>$request->input('maximum'), 'percentage'=>$request->input('percentage')]);
-            return redirect('admindashboard/hunting-commission')->with('success', 'successfully updated');
+            return redirect('/admin');
         }
     }
-    else{
-        return redirect('/admin');
-    }
-}
-public function manage_reports(){
+    public function manage_reports(){
         session()->regenerate();
         if(session('usertype') == 'admin'){
             $adminData = admin::where('admin_id',session('admin_id'))->first();
@@ -513,130 +494,128 @@ public function manage_reports(){
 
 
             return view('admin.manage-reports')->with('adminData', $adminData)->with('transactions', $transactions)->with('swap_transactions', $swap_transactions)->with('hunt_transactions', $hunt_transactions);
+        }
+        else{
+            return redirect('/admin');
+        }
     }
-    else{
-        return redirect('/admin');
-    }
-}
 
-public function manage_products(){
-	session()->regenerate();
+    public function manage_products(){
+    	session()->regenerate();
         if(session('usertype') == 'admin'){
             $adminData = admin::where('admin_id',session('admin_id'))->first();
             $selling_products = DB::select(DB::raw('select a.*, b.category_name as category_name, c.category_name as subcategory_name, concat(d.first_name,concat(" ",d.last_name)) as seller_name from products a left join categories b on a.product_category = b.category_id left join categories c on a.product_subcategory = c.category_id left join users d on a.seller_id = d.user_id where a.sell_type_id = 1'));
-			
+
             return view('admin.manage-products')->with('adminData', $adminData)->with('selling_products', $selling_products);
-    }
-    else{
-        return redirect('/admin');
-    }
-}
-
-public function update_products($id){
-	$adminData = admin::where('admin_id',session('admin_id'))->first();
-	$product = Products::where('product_id',$id)->first();
-	$category = Categories::where('parent_id','0')->get();
-    $selltype = selltype::get();
-	$subcategory = Categories::where('category_id',$product->product_subcategory)->first(['category_name']);
-	return view('admin.update-product')->with('adminData', $adminData)->with('categories',$category)->with('selltype',$selltype)->with('product',$product)->with('subcategory',$subcategory);
-}
-
-public function do_update_products(Request $request, $id){
-	$validator = Validator::make($request->all(), [
-		'ptitle'=>'required|max:100',
-		'category'=>'required|max:50|exists:categories,category_id',
-		'scategory'=>'required|max:50|exists:categories,category_id',
-		'description'=>'required',
-		'stype' => 'required|max:50|exists:selltypes,sell_type_id',
-		'keywords' => 'required|max:500',
-		'image' => 'dimensions:min_width=500,min_height=500|mimes:jpeg,bmp,png,jpg',
-		'image1' => 'mimes:jpeg,bmp,png,jpg|dimensions:min_width=500,min_height=500',
-		'image2' => 'mimes:jpeg,bmp,png|dimensions:min_width=500,min_height=500',
-		'image3' => 'mimes:jpeg,bmp,png|dimensions:min_width=500,min_height=500',
-		'actualprice'=>'required|numeric|min:0',
-		'sellprice'=>'required|numeric|min:0',
-		'discount'=>'required|numeric|min:0|max:100',
-		'afterdiscount'=>'required|numeric|min:0',
-		'status'=>'required|numeric|min:0|max:1'
-	]);
-	
-	if ($validator->fails()) {
-             return redirect('/admindashboard/update-product/'.$id)->withInput()->with('errors',$validator->errors());
         }
         else{
-      if($request->file('image')){
-		  $destinationPath = base_path() . '/public/images/product_master/';
-			$current_time = Carbon::now();
-			$extension = $request->file('image')->getClientOriginalExtension(); 
-			$date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second;
-			  $fileName = $date.'.'.$extension;
-			  $request->file('image')->move($destinationPath, $fileName);
-			  session(['product_images' => $fileName]);
-			  Products::where('product_id',$id)->update(['product_images'=>session('product_images')]);
-	  }
-      if($request->file('image1')){
-                    $current_time = Carbon::now();
-                    $extension = $request->file('image1')->getClientOriginalExtension();
-                    $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'1';
-                    $fileName1 = $date.'.'.$extension;
-                    $request->file('image1')->move($destinationPath, $fileName1);
-                }
-                if($request->file('image2')){
-                    $current_time = Carbon::now();
-                    $extension = $request->file('image2')->getClientOriginalExtension();
-                    $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'2';
-                    $fileName2 = $date.'.'.$extension;
-                    $request->file('image2')->move($destinationPath, $fileName2);
-                }
-                if($request->file('image3')){
-                    $current_time = Carbon::now();
-                    $extension = $request->file('image3')->getClientOriginalExtension();
-                    $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'3';
-                    $fileName3 = $date.'.'.$extension;
-                    $request->file('image3')->move($destinationPath, $fileName3);
-                }
-          session(['product_name' => $request->input('ptitle'),
-              'product_category' => $request->input('category'),
-              'product_subcategory' => $request->input('scategory'),
-              'product_description' => $request->input('description'),
-              'sell_type_id' => $request->input('stype'),
-              'keywords' => $request->input('keywords'),
-            ]);
-          if($request->file('image1')){
-                    session(['image1' => $fileName1]);
-                }
-                if($request->file('image2')){
-                    session(['image2' => $fileName2]);
-                }
-                if($request->file('image3')){
-                    session(['image3' => $fileName3]);
-                }
-			session(['actual_price' => $request->input('actualprice'), 'selling_price' => $request->input('sellprice'), 'discount' => $request->input('discount'), 'discount_price' => $request->input('afterdiscount')]);
-			  
-			  Products::where('product_id',$id)->update([
-															'product_name' => session('product_name'),
-															'product_price' => session('actual_price'),
-															'display_price' => session('selling_price'),
-															'product_description' => session('product_description'),
-															'product_category' => session('product_category'),
-															'product_subcategory' => session('product_subcategory'),
-															'keywords' => session('keywords'),
-															'sell_type_id' => session('sell_type_id'),
-															'seller_discount' => session('discount'),
-															'price_after_discount' => session('discount_price'),
-															'status_value' => $request->input('status')
-														]);
-			  if(Session::has('image1')){
-				Products::where('product_id',$id)->update(['product_image_1'=>session('image1')]);
-			  }
-			  if(Session::has('image2')){
-				Products::where('product_id',$id)->update(['product_image_2'=>session('image2')]);
-			  }
-			  if(Session::has('image3')){
-				Products::where('product_id',$id)->update(['product_image_3'=>session('image3')]);
-			  }
-	  
-          return redirect('/admindashboard/update-product/'.$id)->with('success','Product Details Updated');
+            return redirect('/admin');
         }
-}
+    }
+
+    public function update_products($id){
+    	$adminData = admin::where('admin_id',session('admin_id'))->first();
+    	$product = Products::where('product_id',$id)->first();
+    	$category = Categories::where('parent_id','0')->get();
+        $selltype = selltype::get();
+    	$subcategory = Categories::where('category_id',$product->product_subcategory)->first(['category_name']);
+    	return view('admin.update-product')->with('adminData', $adminData)->with('categories',$category)->with('selltype',$selltype)->with('product',$product)->with('subcategory',$subcategory);
+    }
+
+    public function do_update_products(Request $request, $id){
+    	$validator = Validator::make($request->all(), [
+    		'ptitle'=>'required|max:100',
+    		'category'=>'required|max:50|exists:categories,category_id',
+    		'scategory'=>'required|max:50|exists:categories,category_id',
+    		'description'=>'required',
+    		'stype' => 'required|max:50|exists:selltypes,sell_type_id',
+    		'keywords' => 'required|max:500',
+    		'image' => 'dimensions:min_width=500,min_height=500|mimes:jpeg,bmp,png,jpg',
+    		'image1' => 'mimes:jpeg,bmp,png,jpg|dimensions:min_width=500,min_height=500',
+    		'image2' => 'mimes:jpeg,bmp,png|dimensions:min_width=500,min_height=500',
+    		'image3' => 'mimes:jpeg,bmp,png|dimensions:min_width=500,min_height=500',
+    		'actualprice'=>'required|numeric|min:0',
+    		'sellprice'=>'required|numeric|min:0',
+    		'discount'=>'required|numeric|min:0|max:100',
+    		'afterdiscount'=>'required|numeric|min:0',
+    		'status'=>'required|numeric|min:0|max:1'
+    	]);
+
+    	if ($validator->fails()) {
+            return redirect('/admindashboard/update-product/'.$id)->withInput()->with('errors',$validator->errors());
+        }else{
+            if($request->file('image')){
+                $destinationPath = base_path() . '/public/images/product_master/';
+    			$current_time = Carbon::now();
+    			$extension = $request->file('image')->getClientOriginalExtension();
+    			$date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second;
+    			$fileName = $date.'.'.$extension;
+    			$request->file('image')->move($destinationPath, $fileName);
+    			session(['product_images' => $fileName]);
+    			Products::where('product_id',$id)->update(['product_images'=>session('product_images')]);
+            }
+            if($request->file('image1')){
+                $current_time = Carbon::now();
+                $extension = $request->file('image1')->getClientOriginalExtension();
+                $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'1';
+                $fileName1 = $date.'.'.$extension;
+                $request->file('image1')->move($destinationPath, $fileName1);
+            }
+            if($request->file('image2')){
+                $current_time = Carbon::now();
+                $extension = $request->file('image2')->getClientOriginalExtension();
+                $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'2';
+                $fileName2 = $date.'.'.$extension;
+                $request->file('image2')->move($destinationPath, $fileName2);
+            }
+            if($request->file('image3')){
+                $current_time = Carbon::now();
+                $extension = $request->file('image3')->getClientOriginalExtension();
+                $date = $current_time->year.$current_time->month.$current_time->day.$current_time->hour.$current_time->minute.$current_time->second.'3';
+                $fileName3 = $date.'.'.$extension;
+                $request->file('image3')->move($destinationPath, $fileName3);
+            }
+            session(['product_name' => $request->input('ptitle'),
+                'product_category' => $request->input('category'),
+                'product_subcategory' => $request->input('scategory'),
+                'product_description' => $request->input('description'),
+                'sell_type_id' => $request->input('stype'),
+                'keywords' => $request->input('keywords'),
+            ]);
+            if($request->file('image1')){
+                session(['image1' => $fileName1]);
+            }
+            if($request->file('image2')){
+                session(['image2' => $fileName2]);
+            }
+            if($request->file('image3')){
+                session(['image3' => $fileName3]);
+            }
+    		session(['actual_price' => $request->input('actualprice'), 'selling_price' => $request->input('sellprice'), 'discount' => $request->input('discount'), 'discount_price' => $request->input('afterdiscount')]);
+    		Products::where('product_id',$id)->update([
+				'product_name' => session('product_name'),
+				'product_price' => session('actual_price'),
+				'display_price' => session('selling_price'),
+				'product_description' => session('product_description'),
+				'product_category' => session('product_category'),
+				'product_subcategory' => session('product_subcategory'),
+				'keywords' => session('keywords'),
+				'sell_type_id' => session('sell_type_id'),
+				'seller_discount' => session('discount'),
+				'price_after_discount' => session('discount_price'),
+				'status_value' => $request->input('status')
+			]);
+    			if(Session::has('image1')){
+    				Products::where('product_id',$id)->update(['product_image_1'=>session('image1')]);
+    			}
+    			if(Session::has('image2')){
+    				Products::where('product_id',$id)->update(['product_image_2'=>session('image2')]);
+    			  }
+    			  if(Session::has('image3')){
+    				Products::where('product_id',$id)->update(['product_image_3'=>session('image3')]);
+    			  }
+
+              return redirect('/admindashboard/update-product/'.$id)->with('success','Product Details Updated');
+            }
+    }
 }

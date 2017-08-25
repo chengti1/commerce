@@ -172,16 +172,13 @@ Route::get('/swap-detail/{id}','ProductController@showswapdetail');
 Route::get('/payment-swaps/{id}', array(
     'uses' => 'paypalAdaptiveController@splitPaySwapSeller',
 ));
-
 // set route for review by kartik.
 Route::get('product-detail','ProductController@reviewProduct');
 // end here.
-
 Route::get('payment/sellerswapstatus', array(
     'as' => 'payment.sellerswapstatus',
     'uses' => 'paypalAdaptiveController@viewreportSwapSeller',
 ));
-
 Route::get('payment-swapb/{id}', array(
     'uses' => 'paypalAdaptiveController@splitPaySwapBuyer',
 ));
@@ -189,45 +186,30 @@ Route::get('payment/buyerswapstatus', array(
     'as' => 'payment.buyerswapstatus',
     'uses' => 'paypalAdaptiveController@viewreportSwapBuyer',
 ));
-
 Route::get('/hunt-detail/{id}','ProductController@hunt_detail');
 Route::post('/hunt-detail/{id}','ProductController@hunt_product_detail');
-
 Route::get('/empty-cart', 'ProductController@empty_cart');
 Route::get('/category/{id}', 'ProductController@showcategory');
 Route::get('/subcategory/{id}', 'ProductController@showsubcategory');
-
-
 Route::get('/search', 'ProductController@search');
-
 Route::get('payment/buyerhuntstatus', array(
     'as' => 'payment.buyerhuntstatus',
     'uses' => 'paypalAdaptiveController@getBuyerHuntPaymentStatus',
 ));
-
 Route::get('payment/aellerhuntstatus', array(
     'as' => 'payment.sellerhuntstatus',
     'uses' => 'PaypalController@getSellerHuntPaymentStatus',
 ));
-
-
 Route::get('adaptive', 'paypalAdaptiveController@splitPay');
 Route::get('viewreport', 'paypalAdaptiveController@viewreport');
 Route::get('manage-attributes/{id}','ProductController@manage_attributes');
 Route::post('manage-attributes/{id}','ProductController@do_manage_attributes');
 Route::get('forgot-password','UserController@forgotPassword');
 Route::post('forgot-password','UserController@doForgotPassword');
-
 // prashant kumar
-
 Route::get('change-email','UserController@changeEmail');
-
 Route::post('change-email','UserController@doChangeEmail');
-
 // prashant kumar
 Route::get('reset/{code}/{id}','UserController@changePassword');
 Route::post('reset/{code}/{id}','UserController@doChangePassword');
-
-
 Route::get('invoice/{id}', 'ProductController@getInvoice');
-
