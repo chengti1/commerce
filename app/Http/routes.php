@@ -101,13 +101,14 @@ Route::group(['prefix' => 'admindashboard'], function () {
     Route::get('/editsubcategory','AdminController@editsubcategory');
     Route::get('/manage-coupons', 'AdminController@manage_coupons');
     Route::get('/hunting-commission', 'AdminController@hunting_commission');
-    Route::get('/hunting-product', 'AdminController@huntingProduct');
     Route::get('/update-hunt-commission/{id}', 'AdminController@view_update_commission');
     Route::post('/update-hunt-commission/{id}', 'AdminController@do_view_update_commission');
     Route::get('/manage-reports','AdminController@manage_reports');
     Route::get('/manage-products','AdminController@manage_products');
     Route::get('/update-product/{id}','AdminController@update_products');
     Route::post('/update-product/{id}','AdminController@do_update_products');
+
+    Route::resource('product-commission', 'Admin\ProductComissionController');
 });
 
 Route::get('/', 'UserController@index');

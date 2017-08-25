@@ -90,7 +90,7 @@
                     <a><i class="fa fa-windows"></i>Manage Commissions<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ Request::root() }}/admindashboard/hunting-commission">Hunting</a></li>
-                      <li><a href="{{ Request::root() }}/admindashboard/hunting-product">Product</a></li>
+                      <li><a href="{{ route('admindashboard.product-commission.index') }}">Product</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> My Banners <span class="fa fa-chevron-down"></span></a>

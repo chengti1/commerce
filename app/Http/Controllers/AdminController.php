@@ -450,26 +450,13 @@ class AdminController extends Controller
         }
     }
 
-    public function huntingProduct(){
-        session()->regenerate();
-        if(session('usertype') == 'admin'){
-            $adminData = admin::where('admin_id',session('admin_id'))->first();
-            $commission = hunt_commission::get();
-            return view('admin.hunting-commission')->with('adminData', $adminData)->with('commission',$commission);
-        }
-        else{
-            return redirect('/admin');
-        }
-    }
-
     public function view_update_commission($id){
         session()->regenerate();
         if(session('usertype') == 'admin'){
             $adminData = admin::where('admin_id',session('admin_id'))->first();
             $commission = hunt_commission::where('commission_id', $id)->first();
-            return view('admin.update-hunting-commission')->with('adminData', $adminData)->with('commission',$commission);
-        }
-        else{
+            return view('admin.update-hunting-commission', compact('adminData', 'commission'));
+        }else{
             return redirect('/admin');
         }
     }
