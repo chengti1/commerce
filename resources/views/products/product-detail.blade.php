@@ -1,4 +1,12 @@
 @extends('layouts/layout')
+@section('social_share')
+    @include('social::meta-article', [
+        'title'         => $product->product_name,
+        'description'   => str_limit($product->product_description,65),
+        'image'         => URL::asset('/images/product_master/').'/'. $featured[0]->product_images,
+        'author'        => 'Admin'
+    ])
+@stop
 @section('content')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>

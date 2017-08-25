@@ -150,6 +150,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        SetKyar\Social\SocialServiceProvider::class,
 
         /*
          * Application Service Providers...

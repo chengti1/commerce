@@ -15,7 +15,8 @@
         "srmklive/paypal": "~1.0",
 		"omnipay/paypal": "~2.0",
         "mews/captcha": "^2.1",
-        "anhskohbo/no-captcha": "^2.3"
+        "anhskohbo/no-captcha": "^2.3",
+        "setkyar/laravel-social-share-cards": "^1.1"
     },
 
     "require-dev": {
