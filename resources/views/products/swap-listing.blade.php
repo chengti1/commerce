@@ -277,7 +277,7 @@
 					</div>
 
 					<div class="image image-swap-effect">
-						<a href="{{URL::asset('/')}}product-detail/{{$filter_data_values->product_id}}">
+						<a href="{{URL::asset('/')}}swap-detail/{{$filter_data_values->product_id}}">
 						<img alt="Canon EOS 5D"
 						src="{{request::root()}}/images/product_master/{{$filter_data_values->product_images}}">
 						</a>

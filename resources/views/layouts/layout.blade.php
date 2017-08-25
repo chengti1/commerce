@@ -42,6 +42,7 @@
 	{{Html::script('catalog/view/theme/stowear/js/jquery.easing.1.3.js')}}
 	{{Html::script('catalog/view/theme/stowear/js/bootstrap.min.js')}}
 	{{Html::script('catalog/view/theme/stowear/js/twitter-bootstrap-hover-dropdown.js')}}
+	{{Html::script('catalog/view/theme/stowear/js/bootstrap-datetimepicker.js')}}
 	{{Html::script('catalog/view/theme/stowear/js/common.js')}}
 	{{Html::script('catalog/view/theme/stowear/js/owl.carousel.min.js')}}
 	{{Html::script('catalog/view/theme/stowear/js/jquery.cookie.js')}}
